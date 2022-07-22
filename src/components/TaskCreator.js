@@ -1,25 +1,25 @@
 import { useState } from "react";
-export const TaskCreator = (props) => {
-    const [newTaskName, setNewTaskName] = useState(" ");
+export const TaskCreator = ({ createNewTask }) => {
+  const [newTaskName, setNewTaskName] = useState(" ");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        props.createNewTask(newTaskName)
-        localStorage.setItem("Tasks", newTaskName);
-        setNewTaskName("");
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createNewTask(newTaskName);
+    
+    setNewTaskName("");
+  };
 
-    return (
+  return (
     <form onSubmit={handleSubmit}>
-    <input
+      <input
         type="text"
         placeholder="Enter a new Task"
         value={newTaskName}
         onChange={(e) => setNewTaskName(e.target.value)}
-    />
-    <button>Save task</button>
+      />
+      <button>Save task</button>
     </form>
-    );
+  );
 };
 
 export default TaskCreator;

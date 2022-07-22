@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect} from 'react'
 import "./App.css";
 import TaskCreator from './components/TaskCreator';
+import {TasksTable} from './components/TasksTable';
 
 
 // react task app
@@ -10,11 +11,7 @@ import TaskCreator from './components/TaskCreator';
 // tercero guardamos el valor del input en el localStorage
 function App() {
   
-  const [tasksItems, setTasksItems] = useState([
-    {name: "mi primer tarea", done: false},
-    {name: "mi segunda tarea", done: false},
-    {name: "mi tercera tarea", done: false},
-  ]);
+  const [tasksItems, setTasksItems] = useState([]);
 
 
 // hacemos que no se pueda agregar una tarea que ya este en el array
@@ -24,33 +21,25 @@ function App() {
     setTasksItems([...tasksItems, {name: taskName, done: false}]);
 } 
 
+useEffect(() => {
+  let data = localStorage.getItem("tasks")
+  if (data) {
+    setTasksItems(JSON.parse(data))
+  }
+}, [ ]);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasksItems))
+  }, [tasksItems]);
+
   return (
     <div className="App">
       <TaskCreator createNewTask={createNewTask}/>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Task</th>
-          </tr>
-        </thead>
-
-        <tbody>
-              {
-              tasksItems.map(task => (
-                <tr key={task.name}> 
-                    <td>
-                    {task.name}
-                    </td>
-                  </tr>
-              ))  
-            }
-        </tbody>
-      </table>
+      <TasksTable tasks={tasksItems}/>
+    
 
     
     </div>
   );
 }
-
 export default App;
