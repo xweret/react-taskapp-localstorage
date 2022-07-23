@@ -1,5 +1,5 @@
 import {TaskRow} from './TaskRow';
-export const TasksTable = ({tasks, toggleTask}) => {
+export const TasksTable = ({tasks, toggleTask, showCompleted= false }) => {
     
     const taskTableRows = (doneValue) => {
 
@@ -14,16 +14,16 @@ export const TasksTable = ({tasks, toggleTask}) => {
     }
 
     return (
-        <table>
+        <table className='table table-dark table-striped table-bordered border-secondary'>
         <thead>
-          <tr>
+          <tr className='table-primary'>
             <th>Task</th>
           </tr>
         </thead>
 
         <tbody>
             {
-                taskTableRows(false)
+                taskTableRows(showCompleted)
             }
         </tbody>
       </table>
