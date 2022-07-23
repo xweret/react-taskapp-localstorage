@@ -1,4 +1,18 @@
-export const TasksTable = ({tasks}) => {
+import {TaskRow} from './TaskRow';
+export const TasksTable = ({tasks, toggleTask}) => {
+    
+    const taskTableRows = (doneValue) => {
+
+        
+    return (
+        tasks
+        .filter(task => task.done === doneValue)
+        .map(task => (
+            <TaskRow task={task} key={task.name} toggleTask={toggleTask}/>
+        ))
+    )
+    }
+
     return (
         <table>
         <thead>
@@ -9,13 +23,7 @@ export const TasksTable = ({tasks}) => {
 
         <tbody>
             {
-            tasks.map(task => (
-                <tr key={task.name}> 
-                    <td>
-                    {task.name}
-                    </td>
-                </tr>
-              ))  
+                taskTableRows(false)
             }
         </tbody>
       </table>

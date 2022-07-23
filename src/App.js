@@ -9,9 +9,12 @@ import {TasksTable} from './components/TasksTable';
 // primero crear un input para que el usuario pueda ingresar un nuevo task
 // segundo capturamos el valor del input y lo guardamos en un state
 // tercero guardamos el valor del input en el localStorage
+
 function App() {
   
-  const [tasksItems, setTasksItems] = useState([]);
+  const [tasksItems, setTasksItems] = useState([
+  
+  ]);
 
 
 // hacemos que no se pueda agregar una tarea que ya este en el array
@@ -20,6 +23,14 @@ function App() {
     if (!tasksItems.find(task => task.name === taskName))
     setTasksItems([...tasksItems, {name: taskName, done: false}]);
 } 
+
+const toggleTask = (task) => {
+  setTasksItems(
+    tasksItems.map((t => (t.name === task.name) ? {...t, done: !t.done}: t))
+  );
+};
+
+
 
 useEffect(() => {
   let data = localStorage.getItem("tasks")
@@ -35,8 +46,8 @@ useEffect(() => {
   return (
     <div className="App">
       <TaskCreator createNewTask={createNewTask}/>
-      <TasksTable tasks={tasksItems}/>
-    
+      <TasksTable tasks={tasksItems} toggleTask = {toggleTask}/>
+      <TasksTable tasks={tasksItems} toggleTask = {toggleTask}/>
 
     
     </div>
