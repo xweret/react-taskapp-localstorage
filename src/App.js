@@ -11,6 +11,8 @@ import {Container} from "./components/Container";
 // segundo capturamos el valor del input y lo guardamos en un state
 // tercero guardamos el valor del input en el localStorage
 
+// se podria agregar alguna animacion para que el usuario sepa que esta cargando
+
 function App() {
   const [tasksItems, setTasksItems] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
